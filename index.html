@@ -2,11 +2,10 @@
 <html>
 <head>
   <title>A Leaflet map!</title>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-  <style>
-    #map{ width: 900px; height: 500px; }
-  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="public/css/style.css"/>
+
 </head>
 <body>
 
@@ -15,15 +14,12 @@
   <script>
 
   // initialize the map
-  var map = L.map('map').setView([42.35, -71.08], 13);
+  var map = L.map('map').setView([44.9537, -93.0900], 13);
 
-  // load a tile layer
-  L.tileLayer('http://tiles.mapc.org/basemap/{z}/{x}/{y}.png',
-    {
-      attribution: 'Tiles by <a href="http://mapc.org">MAPC</a>, Data by <a href="http://mass.gov/mgis">MassGIS</a>',
-      maxZoom: 17,
-      minZoom: 9
-    }).addTo(map);
+  L.tileLayer('https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=lqEQADDxUwBeI5AJrz57', {
+    attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+
+  }).addTo(map);
 
   </script>
 </body>
