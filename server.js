@@ -21,21 +21,6 @@ var db = new sqlite3.Database(db_filename, sqlite3.OPEN_READWRITE, (err) => {
 	}
 });
 
-//----------------------------------------------------------//
-
-// GET request handler for '/'
-app.get('', (req, res) => {
-    ReadFile(path.join(template_dir, 'index.html')).then((template) => {
-        let response = template;
-		
-        // modify `response` here
-        WriteHtml(res, response);
-    }).catch((err) => {
-        Write404Error(res);
-    });
-});
-
-
 //---------------------------------------------------------//
 	//Organization functions
 
