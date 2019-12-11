@@ -11,69 +11,39 @@
     <script type="application/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="application/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <!-- Prompt JavaScript - this can be moved to a separate .js file if desired -->
-    <script type="application/javascript">
-        function Prompt() {
-            $("#dialog-form").dialog({
-                autoOpen: true,
-                modal: true,
-                width: "360px",
-                buttons: {
-                    "Ok": function() {
-                        var prompt_input = $("#prompt_input");
-                        Init(prompt_input.val());
-                        $(this).dialog("close");
-                    },
-                    "Cancel": function() {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-        }
+    <script src="public/scripts/main.js"></script>
 
-        var app;
-        var map;
-
-        function Init(crime_api_url) {
-            console.log(crime_api_url);
-			map = L.map('map').setView([44.9537, -93.0900], 13);
-
-			L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-            
-            app = new Vue({
-                el: "#app",
-                data: {
-                    input: ""
-                }
-            });
-			
-			//Get JSON file form API, use data to populate map//
-        }
-
-        function searchLocation(){
-            console.log(app.input);
-    
-            $.getJSON("https://nominatim.openstreetmap.org/search?q="+app.input+"&format=json", (data) =>{
-                console.log(data);
-            });
-
-
-        }
-
-
-
-    </script>
-    <!-- End: Prompt JavaScript -->
 </head>
 <body onload="Prompt()">
+
     <div id = "app">
-        
-        <input v-model = "input">
+        <input v-model = "input" id = "searchbar" placeholder="">
         <button type = "button" @click = "searchLocation">Search</button>
+    
+
+    <div id = "crime_table_div">
+        <table name="crime_table" id= "crime_table" v-model = "table">
+            <thead>
+                <tr>
+                    <th>Neighborhood</th>
+                    <th>Incident Type</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for = 'row in table'>
+                    <td>{{row.nh}}</td>
+                    <td>{{row.inc}}</td>
+                    <td>{{row.c}}</td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
+</div>
+
     <div id="map"></div>
+
     <!-- Prompt -->
     <div id="dialog-form">
         <label for="name">URL for St. Paul Crime API:</label>

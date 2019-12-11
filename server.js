@@ -4,12 +4,14 @@ var express = require('express');
 var sqlite3 = require('sqlite3');
 var bodyParser = require('body-parser');
 var js2xmlparser = require('js2xmlparser');
+var cors = require('cors');
 
 var db_filename = path.join(__dirname, 'db', 'stpaul_crime.sqlite3');
 var port = 8000;
 
 //Initializing the server
 var app = express();
+app.use(cors());
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -176,30 +178,40 @@ app.get('/incidents', (req, res) => {
 				if(req.query.start_date)
 				{
 					startFlag = afterStartDate((req.query.start_date.replace(/-/g,"")),parseInt(row[key].date_time.substring(0,10).replace(/-/g,"")));
+				}else{
+					startFlag = true;
 				}
 				
 				//END DATE
 				if(req.query.end_date)
 				{
 					endFlag = beforeEndDate((req.query.end_date.replace(/-/g,"")),parseInt(row[key].date_time.substring(0,10).replace(/-/g,"")));
+				}else{
+					endFlag = true;
 				}
 				
 				//CODE
 				if(req.query.code)
 				{
 					codeFlag = approveNums(req.query.code.split(','),row[key].code)
+				}else{
+					codeFlag = true;
 				}
 				
 				//POLICE GRID
 				if(req.query.grid)
 				{
 					gridFlag = approveNums(req.query.grid.split(','),row[key].police_grid);
+				}else{
+					gridFlag = true;
 				}
 				
 				//ID
 				if(req.query.id)
 				{
 					neighbor_numFlag = approveNums(req.query.id.split(','),row[key].neighborhood_number);
+				}else{
+					neighbor_numFlag = true;
 				}
 				
 				if(startFlag && endFlag && codeFlag && gridFlag && neighbor_numFlag)
