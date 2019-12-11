@@ -1,12 +1,7 @@
 #map{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: -1;}
 
-<<<<<<< HEAD
 #app{ position:absolute; top:0; right:0; padding-top: 10px; padding-right: 10px;}
 
 #crime_table_div{position:absolute; top:30px; right:0; padding-top: 10px; padding-right: 10px;}
 
 #crime_table{width:235px; font-size: 12px; overflow: scroll;}
-=======
-#seachbox{ position:relative; top:0; right:0;}
-
->>>>>>> 72566f70f9961a160c586e0c29bfad8e7cfd121b
