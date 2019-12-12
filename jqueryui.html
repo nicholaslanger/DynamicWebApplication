@@ -1,66 +1,55 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Prompt Test</title>
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-		<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
-		<link rel="stylesheet" href="public/css/style.css"/>
-		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-		<script type="application/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-		<script type="application/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-		<!-- Prompt JavaScript - this can be moved to a separate .js file if desired -->
-		<script type="application/javascript">
-			function Prompt() {
-				$("#dialog-form").dialog({
-					autoOpen: true,
-					modal: true,
-					width: "360px",
-					buttons: {
-						"Ok": function() {
-							var prompt_input = $("#prompt_input");
-							Init(prompt_input.val());
-							$(this).dialog("close");
-						},
-						"Cancel": function() {
-							$(this).dialog("close");
-						}
-					}
-				});
-			}
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Prompt Test</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="public/css/style.css"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="application/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="public/scripts/main.js"></script>
 
-			var app;
-			var map;
+</head>
+<body onload="Prompt()">
 
-			function Init(crime_api_url) {
-				console.log(crime_api_url);
-				map = L.map('map').setView([44.9537, -93.0900], 13);
+    <div id = "app">
+        <input v-model = "input" id = "searchbar" placeholder="">
+        <button type = "button" @click = "searchLocation">Search</button>
+    
 
-				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-				}).addTo(map);
-				
-				app = new Vue({
-					el: "#app",
-					data: {
-						input: ""
-					}
-				});
-				
-				//Get JSON file form API, use data to populate map//
-			}
+        <div id = "crime_table_div">
+            <table name="crime_table" id= "crime_table">
+                <thead>
+                    <tr>
+                        <th>Case Number</th>
+                        <th>Incident Type</th>
+                        <th>Date</th>
+                        <th>Address</th>
+                        <th>Neighborhood</th>
+                        <th>Police Grid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for = 'item in rowData'>
+                        <td>{{ item.codeNum }}</td>
+                        <td>{{ item.incident }}</td>
+                        <td>{{ item.date }}</td>
+                        <td>{{ item.block }}</td>
+                        <td>{{ item.neighborhood }}</td>
+                        <td>{{ item.police_grid }}</td>
+                    </tr>
 
-			function searchLocation(){
-				console.log(app.input);
+                </tbody>
+            </table>
+        </div>
 
-				$.getJSON("https://nominatim.openstreetmap.org/search?q="+app.input+"&format=json", (data) =>{
-					console.log(data);
-				});
+    </div>
 
-
-			}
+    <div id="map"></div>
 		</script>
 		<!-- End: Prompt JavaScript -->
 	</head>

@@ -22,6 +22,7 @@
         "url": "https://github.com/nicholaslanger/Project4-DynamicWebApplication.git"
     },
     "dependencies": {
+        "cors": "^2.8.5",
         "debug": "^4.1.1",
         "express": "^4.17.1",
         "js2xmlparser": "^4.0.0",
