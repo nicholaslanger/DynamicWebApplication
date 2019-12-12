@@ -53,8 +53,33 @@ function Init(crime_api_url) {
 
         console.log(codes);
         console.log(neighborhoods);
-        console.log(incidents);
+        console.log(incidents.I18218701.date);
+        //app.rowData.push(incidents);
 
+        var code;
+        var template;
+        for (key in incidents) {
+            code = Object.keys(incidents)[0];
+            //var d = incidents[key]
+            //console.log(d);
+            template = {
+                codeNum: "",
+                incident: "",
+                date: "",
+                address: "",
+                neighborhood: "",
+                policeGrid: ""
+            };
+            template.codeNum = code;
+            template.incident = incidents[key].incident;
+            template.date = incidents[key].date;
+            template.address = incidents[key].block;
+            template.neighborhood = incidents[key].neighborhood_number;
+            template.policeGrid = incidents[key].police_grid; 
+            //console.log(template);
+            app.rowData.push(template);           
+        }
+      
     });
 
     var southWest = L.latLng(44.887413, -93.203560);
@@ -73,14 +98,26 @@ function Init(crime_api_url) {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
     
+
     app = new Vue({
         el: "#app",
         data: {
             input: "",
-            table: {}
+            rowData:[]
+                            /*rowData:[
+                                {cn: ""},
+                                {it: ""},
+                                {d: ""},
+                                {b: ""},
+                                {nh: ""},
+                                {pg: ""}
+                            ]*/
         }
     });
-    
+
+    //app.rowData = [{nh: "1", it: '2', d:"d"} , {nh: "2", it: '3', d:"e"}]
+
+
     //Get JSON file form API, use data to populate map//
 }
 

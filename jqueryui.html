@@ -21,26 +21,33 @@
         <button type = "button" @click = "searchLocation">Search</button>
     
 
-    <div id = "crime_table_div">
-        <table name="crime_table" id= "crime_table" v-model = "table">
-            <thead>
-                <tr>
-                    <th>Neighborhood</th>
-                    <th>Incident Type</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for = 'row in table'>
-                    <td>{{row.nh}}</td>
-                    <td>{{row.inc}}</td>
-                    <td>{{row.c}}</td>
-                </tr>
+        <div id = "crime_table_div">
+            <table name="crime_table" id= "crime_table">
+                <thead>
+                    <tr>
+                        <th>Case Number</th>
+                        <th>Incident Type</th>
+                        <th>Date</th>
+                        <th>Address</th>
+                        <th>Neighborhood</th>
+                        <th>Police Grid</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for = 'item in rowData'>
+                        <td>{{ item.codeNum }}</td>
+                        <td>{{ item.incident }}</td>
+                        <td>{{ item.date }}</td>
+                        <td>{{ item.block }}</td>
+                        <td>{{ item.neighborhood }}</td>
+                        <td>{{ item.police_grid }}</td>
+                    </tr>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-</div>
 
     <div id="map"></div>
 
