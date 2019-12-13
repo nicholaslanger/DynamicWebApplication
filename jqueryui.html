@@ -15,7 +15,7 @@
 
 </head>
 <body onload="Prompt()">
-
+	<div id="map"></div>
     <div id = "app">
         <input v-model = "input" id = "searchbar" placeholder="">
         <button type = "button" @click = "searchLocation">Search</button>
@@ -34,28 +34,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for = 'item in rowData'>
-                        <td>{{ item.codeNum }}</td>
-                        <td>{{ item.incident }}</td>
-                        <td>{{ item.date }}</td>
-                        <td>{{ item.block }}</td>
-                        <td>{{ item.neighborhood }}</td>
-                        <td>{{ item.police_grid }}</td>
+                    <tr v-for = 'item in rowData' v-if = 'visible(item.neighborhood)'>
+						<td>{{ item.codeNum }}</td>
+						<td>{{ item.incident }}</td>
+						<td>{{ item.date }}</td>
+						<td>{{ item.address }}</td>
+						<td>{{ item.neighborhood }}</td>
+						<td>{{ item.policeGrid }}</td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
-
     </div>
-
-    <div id="map"></div>
-
-    <!-- Prompt -->
-    <div id="dialog-form">
-        <label for="name">URL for St. Paul Crime API:</label>
-        <input type="text" id="prompt_input" class="text ui-widget-content ui-corner-all" style="width: 320px;"/>
-    </div>
-    <!-- End: Prompt -->
-</body>
+		<!-- Prompt -->
+		<div id="dialog-form">
+			<label for="name">URL for St. Paul Crime API:</label>
+			<input type="text" id="prompt_input" class="text ui-widget-content ui-corner-all" style="width: 320px;"/>
+		</div>
+		<!-- End: Prompt -->
+	</body>
 </html>
