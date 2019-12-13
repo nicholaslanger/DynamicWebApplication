@@ -1,48 +1,19 @@
-#map{ 
-	position: absolute;
-	top: 0;
-    left: 0;
-	width: 1080px;
-	height: 740px;
-}
+#map{ position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: -1;}
 
-#seachbox{ 
-	position:relative;
-	top:0;
-	right:0;
-}
-
-#app{ 
-	position:absolute;
-	top:0;
-	right:0;
-	padding-top: 10px;
-	padding-right: 10px;
-}
+#app{ position:absolute; top:0; right:0; padding-top: 10px; padding-right: 10px;}
 
 #crime_table_div{
+    position:absolute; 
     top:40px; 
     right:10px; 
     overflow: scroll;    
-    width:410px; 
-    height: 705px;
+    width:233px; 
+    height: 100px;
     font-size: 12px; 
-    border: 1px solid #000000; 
-    background-color: white;
-}
-
-td{
-	border-style: solid;
-	border: 1px solid #000000; 
-}
-
-th{
-	border-style: solid;
-	border: 1px solid #000000; 
-	border-width: 5px;
+    border: 1px solid #d3d3d3; 
+    background-color: white; 
 }
 
 #crime_table{
-    border-style: solid;
-	border: 1px solid #000000; 
+    
 }

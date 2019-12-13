@@ -214,10 +214,3 @@ function searchLocation(){
         $("#searchbar").val(data[0].display_name);
     });
 }
-<<<<<<< HEAD
-
-// function visible(neighborhood_number){
-// 	return map.getBounds().contains(app.nHoods[neighborhood_number].loc);
-// }
-=======
->>>>>>> 8afa22010902179c823f4be1a05b348463dcf403
