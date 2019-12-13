@@ -20,7 +20,6 @@ function Prompt() {
 
 var app;
 var map;
-var nHoods = [];
 //Populating Neighborhoods
 var n1 = {name: "Conway/Battlecreek/Highwood", loc: L.latLng(44.943373, -93.025156)}
 var n2 = {name: "Greater East Side", loc: L.latLng(44.974008, -93.024006)}
@@ -40,23 +39,7 @@ var n15 = {name: "Highland", loc: L.latLng(44.913323, -93.177134)}
 var n16 = {name: "Summit Hill", loc: L.latLng(44.936884, -93.138628)}
 var n17 = {name: "Capitol River", loc: L.latLng(44.948931, -93.093272)}
 
-var n1loc = L.latLng(44.943373, -93.025156);
-var n2loc = L.latLng(44.974008, -93.024006);
-var n3loc = L.latLng(44.931727, -93.080589);
-var n4loc =  L.latLng(44.956556, -93.058301);
-var n5loc =  L.latLng(44.978582, -93.067561);
-var n6loc =  L.latLng(44.977162, -93.112314);
-var n7loc = L.latLng(44.959335, -93.121271);
-var n8loc = L.latLng(44.949461, -93.126188);
-var n9loc = L.latLng(44.930674, -93.122750);
-var n10loc = L.latLng(44.982135, -93.149292);
-var n11loc =  L.latLng(44.962991, -93.167290);
-var n12loc =  L.latLng(44.975372, -93.197652);
-var n13loc =  L.latLng(44.948739, -93.177231);
-var n14loc = L.latLng(44.934240, -93.176994);
-var n15loc =  L.latLng(44.913323, -93.177134);
-var n16loc = L.latLng(44.936884, -93.138628);
-var n17loc = L.latLng(44.948931, -93.093272);
+theHoods = [n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17];
 
 function Init(crime_api_url) {
     console.log(crime_api_url);
@@ -88,27 +71,35 @@ function Init(crime_api_url) {
         incidents = results[2];
 		
 		//var code;
-		var template;
+        var template;
+        var numCrimes = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
 		//Populating Incidents Table
 		for(key in incidents) {
-		//code = Object.keys(incidents)[0];
-		template = {
-			codeNum: "",
-			incident: "",
-			date: "",
-			address: "",
-			neighborhood: "",
-			policeGrid: "",
-			};
+            template = {
+                codeNum: "",
+                incident: "",
+                date: "",
+                address: "",
+                neighborhood: "",
+                policeGrid: "",
+            };
 			template.codeNum = key;
 			template.incident = incidents[key].incident;
 			template.date = incidents[key].date;
 			template.address = incidents[key].block;
 			template.neighborhood = incidents[key].neighborhood_number;
 			template.policeGrid = incidents[key].police_grid; 
-			app.rowData.push(template);   
-		}
+            app.rowData.push(template);
+            
+            numCrimes[incidents[key].neighborhood_number-1]++;
+        }
+        
+        for(let i = 0; i < theHoods.length; i++){
+            L.marker(theHoods[i].loc, {
+                title: theHoods[i].name
+            }).addTo(map).bindPopup(theHoods[i].name+" crimes: "+numCrimes[i]).openPopup()
+        }
     });
 
     var southWest = L.latLng(44.887413, -93.203560);
@@ -134,63 +125,25 @@ function Init(crime_api_url) {
         data: {
             input: "",
             rowData:[],
-			thelocs:[]
+            mapBounds: map.getBounds()
         },
 		methods: {
-			visible: function(neighborhood_number)
-			{
-				return map.getBounds().contains(app.nHoods[parseInt(neighborhood_number)].loc);
-			}
+			visibleOnMap: function(neighborhood_number){
+                let loc = theHoods[neighborhood_number-1].loc;
+                if (this.mapBounds.contains(loc)){
+                    return true;
+                }
+                return false;
+            }
 		}		
     });
-		
-	app.thelocs = [n1loc,n2loc,n3loc,n4loc,n5loc,n6loc,n7loc,n8loc,n9loc,n10loc,n11loc,n12loc,n13loc,n14loc,n15loc,n16loc,n17loc];
-	theHoods = [n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17];
-	
-	for(let i = 0; i < theHoods.length; i++){
-		L.marker(theHoods[i].loc, {title: theHoods[i].name}).addTo(map);
-		nHoods.push(theHoods[i]);
-	}
-    //Get JSON file form API, use data to populate map//
-	
-	var hold_incidents;
-	var solution = [];
-	
+
 	//On Map Move event
-	map.on("moveend", function ()
-	{
-		$.getJSON(crime_api_url+"/incidents?start_date=2019-10-01&end_date=2019-31-10", (data) =>{
-			for(key in data){
-				for(let i = 0; i < 17; i++){
-					if(!map.getBounds().contains(nHoods[i].loc)){
-						delete data[key];
-						console.log('deleted');
-					}
-				}
-			}
-			app.rowDate = [];
-			var new_temp;
-			for(key in data) {
-			//code = Object.keys(incidents)[0];
-			new_temp = {
-				codeNum: "",
-				incident: "",
-				date: "",
-				address: "",
-				neighborhood: "",
-				policeGrid: "",
-				};
-				new_temp.codeNum = key;
-				new_temp.incident = data[key].incident;
-				new_temp.date = data[key].date;
-				new_temp.address = data[key].block;
-				new_temp.neighborhood = data[key].neighborhood_number;
-				new_temp.policeGrid = data[key].police_grid; 
-				app.rowData.push(new_temp);   
-			}
-		});
+	map.on("moveend", function () {
+        app.mapBounds = map.getBounds();
 	});
 }
+
 function searchLocation(){
     $.getJSON("https://nominatim.openstreetmap.org/search?q="+app.input+"&format=json", (data) =>{
         console.log(data);

@@ -17,7 +17,7 @@
 <body onload="Prompt()">
 	<div id="map"></div>
     <div id = "app">
-        <input v-model = "input" id = "searchbar" placeholder="">
+        <input v-model = "input" id = "searchbar" placeholder="search address or lat/lon">
         <button type = "button" @click = "searchLocation">Search</button>
     
 
@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for = 'item in rowData'>
+                    <tr v-for = 'item in rowData' v-if='visibleOnMap(item.neighborhood)'>
 						<td>{{ item.codeNum }}</td>
 						<td>{{ item.incident }}</td>
 						<td>{{ item.date }}</td>
