@@ -40,7 +40,7 @@ function Init(crime_api_url) {
     });
 
     var promise3 = new Promise(function (resolve, reject){
-        $.getJSON(crime_api_url+"/incidents", (data) =>{
+        $.getJSON(crime_api_url+"/incidents?start_date=2019-10-01&end_date=2019-31-10", (data) =>{
             resolve(data);
         });
     });
@@ -49,37 +49,29 @@ function Init(crime_api_url) {
         codes = results[0];
         neighborhoods = results[1];
         incidents = results[2];
+		
+		var code;
+		var template;
 
-
-        console.log(codes);
-        console.log(neighborhoods);
-        console.log(incidents.I18218701.date);
-        //app.rowData.push(incidents);
-
-        var code;
-        var template;
-        for (key in incidents) {
-            code = Object.keys(incidents)[0];
-            //var d = incidents[key]
-            //console.log(d);
-            template = {
-                codeNum: "",
-                incident: "",
-                date: "",
-                address: "",
-                neighborhood: "",
-                policeGrid: ""
-            };
-            template.codeNum = code;
-            template.incident = incidents[key].incident;
-            template.date = incidents[key].date;
-            template.address = incidents[key].block;
-            template.neighborhood = incidents[key].neighborhood_number;
-            template.policeGrid = incidents[key].police_grid; 
-            //console.log(template);
-            app.rowData.push(template);           
-        }
-      
+		//Populating Incidents Table
+		for(key in incidents) {
+		code = Object.keys(incidents)[0];
+		template = {
+			codeNum: "",
+			incident: "",
+			date: "",
+			address: "",
+			neighborhood: "",
+			policeGrid: "",
+			};
+			template.codeNum = key;
+			template.incident = incidents[key].incident;
+			template.date = incidents[key].date;
+			template.address = incidents[key].block;
+			template.neighborhood = incidents[key].neighborhood_number;
+			template.policeGrid = incidents[key].police_grid; 
+			app.rowData.push(template);   
+		}
     });
 
     var southWest = L.latLng(44.887413, -93.203560);
@@ -98,26 +90,41 @@ function Init(crime_api_url) {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
     
-
+	L.marker([44.9537, -93.0900], {title: "Saint Paul"}).addTo(map);
+	
     app = new Vue({
         el: "#app",
         data: {
             input: "",
-            rowData:[]
-                            /*rowData:[
-                                {cn: ""},
-                                {it: ""},
-                                {d: ""},
-                                {b: ""},
-                                {nh: ""},
-                                {pg: ""}
-                            ]*/
+            rowData:[],	
+			nHoods:[]
         }
     });
-
-    //app.rowData = [{nh: "1", it: '2', d:"d"} , {nh: "2", it: '3', d:"e"}]
-
-
+	
+	//Populating Neighborhoods
+	var n1 = {name: "Conway/Battlecreek/Highwood", loc: L.latLng(44.943373, -93.025156)}
+	var n2 = {name: "Greater East Side", loc: L.latLng(44.974008, -93.024006)}
+	var n3 = {name: "West Side", loc: L.latLng(44.931727, -93.080589)}
+	var n4 = {name: "Dayton's Bluff", loc: L.latLng(44.956556, -93.058301)}
+	var n5 = {name: "Payne/Phalen", loc: L.latLng(44.978582, -93.067561)}
+	var n6 = {name: "North End", loc: L.latLng(44.977162, -93.112314)}
+	var n7 = {name: "Thomas/Dale(Frogtown)", loc: L.latLng(44.959335, -93.121271)}
+	var n8 = {name: "Summit/University", loc: L.latLng(44.949461, -93.126188)}
+	var n9 = {name: "West Seventh", loc: L.latLng(44.930674, -93.122750)}
+	var n10 = {name: "Como", loc: L.latLng(44.982135, -93.149292)}
+	var n11 = {name: "Hamline/Midway", loc: L.latLng(44.962991, -93.167290)}
+	var n12 = {name: "St. Anthony", loc: L.latLng(44.975372, -93.197652)}
+	var n13 = {name: "Union Park", loc: L.latLng(44.948739, -93.177231)}
+	var n14 = {name: "Macalester-Groveland", loc: L.latLng(44.934240, -93.176994)}
+	var n15 = {name: "Highland", loc: L.latLng(44.913323, -93.177134)}
+	var n16 = {name: "Summit Hill", loc: L.latLng(44.936884, -93.138628)}
+	var n17 = {name: "Capitol River", loc: L.latLng(44.948931, -93.093272)}
+	
+	var theHoods = [n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12,n13,n14,n15,n16,n17];
+	app.nHoods = theHoods;
+	for(let i = 0; i < theHoods.length; i++){
+		L.marker(theHoods[i].loc, {title: theHoods[i].name}).addTo(map);
+	}
     //Get JSON file form API, use data to populate map//
 }
 
@@ -143,4 +150,8 @@ function searchLocation(){
 
         $("#searchbar").val(data[0].display_name);
     });
+}
+
+function visible(neighborhood_number){
+	return map.getBounds().contains(app.nHoods[neighborhood_number].loc);
 }
