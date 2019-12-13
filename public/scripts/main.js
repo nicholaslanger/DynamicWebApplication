@@ -152,6 +152,6 @@ function searchLocation(){
     });
 }
 
-function visible(neighborhood_number){
-	return map.getBounds().contains(app.nHoods[neighborhood_number].loc);
-}
+// function visible(neighborhood_number){
+// 	return map.getBounds().contains(app.nHoods[neighborhood_number].loc);
+// }

@@ -1,9 +1,7 @@
 #map{ 
-	/*position: absolute;
+	position: absolute;
 	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;*/
+    left: 0;
 	width: 1080px;
 	height: 740px;
 }
@@ -23,7 +21,6 @@
 }
 
 #crime_table_div{
-    position:absolute; 
     top:40px; 
     right:10px; 
     overflow: scroll;    

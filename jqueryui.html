@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for = 'item in rowData' v-if = 'visible(item.neighborhood)'>
+                    <tr v-for = 'item in rowData'><!--</tr> v-if = 'visible(item.neighborhood)'>-->
 						<td>{{ item.codeNum }}</td>
 						<td>{{ item.incident }}</td>
 						<td>{{ item.date }}</td>
