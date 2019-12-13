@@ -53,30 +53,27 @@ function Init(crime_api_url) {
 
         console.log(codes);
         console.log(neighborhoods);
-        console.log(incidents.I18218701.date);
+        console.log(incidents);
         //app.rowData.push(incidents);
 
         var code;
         var template;
         for (key in incidents) {
-            code = Object.keys(incidents)[0];
-            //var d = incidents[key]
-            //console.log(d);
+            
             template = {
                 codeNum: "",
                 incident: "",
                 date: "",
-                address: "",
+                block: "",
                 neighborhood: "",
-                policeGrid: ""
+                police_grid: ""
             };
-            template.codeNum = code;
+            template.codeNum = key;
             template.incident = incidents[key].incident;
             template.date = incidents[key].date;
-            template.address = incidents[key].block;
+            template.block = incidents[key].block;
             template.neighborhood = incidents[key].neighborhood_number;
-            template.policeGrid = incidents[key].police_grid; 
-            //console.log(template);
+            template.police_grid = incidents[key].police_grid; 
             app.rowData.push(template);           
         }
       
@@ -103,7 +100,7 @@ function Init(crime_api_url) {
         el: "#app",
         data: {
             input: "",
-            rowData:[]
+            rowData:[],
                             /*rowData:[
                                 {cn: ""},
                                 {it: ""},
