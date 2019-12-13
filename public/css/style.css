@@ -17,3 +17,9 @@
 #crime_table{
     
 }
+
+#butt {
+    position: relative;
+    bottom: 0;
+    right: 0;
+}
