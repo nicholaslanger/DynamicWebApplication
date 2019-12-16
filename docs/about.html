@@ -12,44 +12,77 @@
         <div id = 'member'>
             <h2 id = 'trev-header'>Trevor</h2>
             <figure id = 'trev-p'>
-                <img src="images/trev.jpeg" width="200" height ="200" alt="trev">
-                <figcaption>Text</figcaption>
+                <img src="images/trev.jpeg" width="200" height ="200" alt="trev" class="rotateimg180">
+                <figcaption>
+					Hello! I'm trev dog. i'm a junior computer science major at st thomas. I am interested in application
+					development and graphic design. I'm currently pursuing getting an internship for this upcoming summer.
+					yeet.
+				</figcaption>
             </figure>
         </div>
         <div id = 'member'>
             <h2 id = 'nick-header'>Nick</h2>
             <figure id = 'nick-p'>
                 <img src="images/nick.jpg" width="200" height="200" alt="nick">
-                <figcaption>Text</figcaption>
+                <figcaption>
+					Hi! I'm Nick. I'm a senior computer science student here at st. thomas minoring in stats. 
+					I'm interested in full stack development after I graduate in may. but mostly, I'm interested
+					in no longer being aggressively broke. 
+				</figcaption>
             </figure>
         </div>
     </div>
     <div id = description>
-		<h2>Description</h2>
-			<span>
-				Framework: Vue.js
-					Vue.js: An open-source Model–view–viewmodel JavaScript framework that we utilized to create
-					and dynamically modify our webpage. For example, this framework allowed us to dynamically populate
-					our table based on our maps current bounds.
-					URL:https://vuejs.org/
-					
-				API(s): Nominatim, RESTful (local Server), Leaflet
+		<h2>Description of tools used to create this application</h2>
+
+		<table>
+			<tr>
+				<td>
+					Node.js: Run time environment. Used Express package to create RESTful server and test server functionality.
+					Other packages in Node.js used include: xml parser, cors, sqlite3 database connection, etc.
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Framework: Vue.js
+						Vue.js: An open-source Model–view–viewmodel JavaScript framework that we utilized to create
+						and dynamically modify our webpage. For example, this framework allowed us to dynamically populate
+						our table with St. Paul crime incidents dependending on wether or not the neighborhood that incident 
+						occurred in was visible on the map.
+						URL:https://vuejs.org/
+				</td>
+			</tr>
+			<tr>
+				<td>
+					API(s): Nominatim, RESTful (local Server), Leaflet
+				</td>
+			</tr>
+			<tr>
+				<td>
 					Nominatim: A search engine for OpenStreetMap data. This allowed us to construct our
-						search engine and move our map to specified latitude and longitude coordinates, or
-						specified address
-						URL:http://nominatim.org/
-					
+					search engine and move our map to specified latitude and longitude coordinates, or
+					specified address
+					URL:http://nominatim.org/	
+				</td>
+			</tr>
+			<tr>
+				<td>
 					RESTful (local Server): Allowed us to utilize search query's in our database and obtain
-						a list of objects that corresponds to a specified search result. 
-					
+					a list of objects that corresponds to a specified search result. 
+				</td>
+			</tr>
+				<td>
 					Leaflet: A 'map' object constructor that allowed us to create our map in addition to 
 						populating it with markers, updating our table only with locations within the map bounds,
 						and panning it to specified locations via the Nominatim API.
 						URL:https://leafletjs.com/
-			</span>
+				</td>
+			</tr>
+
+		</table>
     </div>
     <div id = findings>
-		<h3>Findings</h3>
+		<h2>Interesting findings when creating this application</h2>
 			<table>
 				<tr>
 					<td>[1]: Capitol River had the highest number of crimes in the month of October.</td>
@@ -71,7 +104,7 @@
 				</tr>
 			</table>			
     </div>
-    <button id = 'butt' type = "button" onclick="window.location.href = 'jqueryui.html'">Crimes</button>
+    <button id = 'butt' type = "button" onclick="window.location.href = 'index.html'">Crimes</button>
     
 </body>
 <html>
