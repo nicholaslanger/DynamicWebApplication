@@ -25,10 +25,51 @@
         </div>
     </div>
     <div id = description>
-
+		<h2>Description</h2>
+			<span>
+				Framework: Vue.js
+					Vue.js: An open-source Model–view–viewmodel JavaScript framework that we utilized to create
+					and dynamically modify our webpage. For example, this framework allowed us to dynamically populate
+					our table based on our maps current bounds.
+					URL:https://vuejs.org/
+					
+				API(s): Nominatim, RESTful (local Server), Leaflet
+					Nominatim: A search engine for OpenStreetMap data. This allowed us to construct our
+						search engine and move our map to specified latitude and longitude coordinates, or
+						specified address
+						URL:http://nominatim.org/
+					
+					RESTful (local Server): Allowed us to utilize search query's in our database and obtain
+						a list of objects that corresponds to a specified search result. 
+					
+					Leaflet: A 'map' object constructor that allowed us to create our map in addition to 
+						populating it with markers, updating our table only with locations within the map bounds,
+						and panning it to specified locations via the Nominatim API.
+						URL:https://leafletjs.com/
+			</span>
     </div>
     <div id = findings>
-
+		<h3>Findings</h3>
+			<table>
+				<tr>
+					<td>[1]: Capitol River had the highest number of crimes in the month of October.</td>
+				</tr>
+				<tr>
+					<td>[2]: Summit Hill has the lowest number of crimes in the month of October.</td>
+				</tr>
+				<tr>
+					<td>[3]: NW Distracts had a higher average of crimes in the month of October.</td>
+				</tr>
+				<tr>
+					<td>[4]: SW Distracts had the lowest average of crimes in the month of October.</td>
+				</tr>
+				<tr>
+					<td>[5]: The district of Capitol River had a large amount of Proactive Police Visits in the month of October.</td>
+				</tr>
+				<tr>
+					<td>[6]: Summit Hill had almost all of its crimes in the month of October as Theft, Burglary, and Proactive Police Visits.</td>	
+				</tr>
+			</table>			
     </div>
     <button id = 'butt' type = "button" onclick="window.location.href = 'jqueryui.html'">Crimes</button>
     
